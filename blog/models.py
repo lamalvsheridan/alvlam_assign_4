@@ -1,6 +1,7 @@
 from django.conf import settings  # Imports Django's loaded settings
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 
 
 class Topic(models.Model):
@@ -27,6 +28,10 @@ class Topic(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        kwargs = {'slug': self.slug}
+        return reverse('topic-detail', kwargs=kwargs)
+
 
 class PostManager(models.Manager):
     def get_queryset(self):
@@ -40,6 +45,11 @@ class PostQuerySet(models.QuerySet):
 
     def drafts(self):
         return self.filter(status=self.model.DRAFT)
+
+    def get_authors(self):
+        User = get_user_model()
+        # Get the users who are authors of this queryset
+        return User.objects.filter(blog_posts__in=self).distinct()
 
 
 class Post(models.Model):

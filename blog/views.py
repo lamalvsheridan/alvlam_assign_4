@@ -18,9 +18,7 @@ class HomeView(TemplateView):
         latest_posts = models.Post.objects.published().order_by('-published')[:3]
 
         # Update the context with our context variables
-        context.update({
-            'latest_posts': latest_posts
-        })
+        context.update({'latest_posts': latest_posts})
 
         return context
 
@@ -54,3 +52,36 @@ class PostDetailView(DetailView):
             published__month=self.kwargs['month'],
             published__day=self.kwargs['day'],
         )
+
+    def get_context_data(self, **kwargs):
+        # Get the parent context
+        context = super().get_context_data(**kwargs)
+
+        post_topics = super().get_object().topic.all()
+
+        context.update({
+            'post_topics': post_topics
+        })
+
+        return context
+
+
+class TopicListView(ListView):
+    model = models.Topic
+    context_object_name = 'topics'
+
+
+class TopicDetailView(DetailView):
+    model = models.Topic
+
+    def get_context_data(self, **kwargs):
+        # Get the parent context
+        context = super().get_context_data(**kwargs)
+
+        blog_posts = super().get_object().blog_posts.all()
+
+        context.update({
+            'blog_posts': blog_posts
+        })
+
+        return context

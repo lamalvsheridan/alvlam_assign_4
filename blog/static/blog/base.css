@@ -16,6 +16,10 @@ h3 {
   border-bottom: 1px solid #eee;
 }
 
+em {
+  color: #999;
+}
+
 /*
  * Style the <a> tags. Have a consistent colour for both visited
  * and unvisited links. Show underline on hover only.
@@ -78,6 +82,10 @@ a:hover {
   font-size: 0.9rem;
 }
 
+aside section {
+  margin-bottom: 2em;
+}
+
 .post-preview {
   border-bottom: 1px #eee solid;
 }
@@ -112,4 +120,17 @@ a:hover {
 
 #post-detail-article .content {
   margin: 2rem 0;
+}
+
+#post-detail-article h3 {
+  border-bottom: 0px solid #eee;
+}
+
+.topic-preview {
+  border-bottom: 1px #eee solid;
+}
+
+#topic-detail-article h1 {
+  margin-bottom: 0;
+  padding-bottom: 0;
 }

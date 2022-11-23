@@ -9,5 +9,12 @@
   <span class="author">{{ post.author.get_full_name }}</span>
 
   <section class="content">{{ post.content|linebreaks }}</section>
+
+  <h3>Related Topics:</h3>
+  <ul>
+  {% for topic in post_topics %}
+  <li><a href="{{ topic.get_absolute_url }}">{{ topic.name }}</a></li>
+  {% endfor %}
+  </ul>
 </article>
 {% endblock %}
